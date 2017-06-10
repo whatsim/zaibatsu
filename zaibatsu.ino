@@ -2,6 +2,7 @@
 #include "Shared.h"
 #include "Titlescreen.h"
 #include "Menu.h"
+#include "Assets.h"
 
 // Make an instance of arduboy used for many functions
 Arduboy2 arduboy;
@@ -23,6 +24,7 @@ void setup() {
   arduboy.boot(); // raw hardware
   arduboy.blank(); // blank the display
 
+  Sprites::drawSelfMasked(2,2,sprite_corner,0);
   // check for and handle buttons held during start up for system control
   arduboy.audio.begin();
 

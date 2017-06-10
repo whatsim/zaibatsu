@@ -13,7 +13,8 @@ class Shared
     float lerp(float a, float b, float f);
     typedef enum Gamemode {
   	  title,
-  	  menu
+  	  menu,
+  	  scanner
   	};
 };
 

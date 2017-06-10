@@ -6,6 +6,7 @@
 
 #include <Arduboy2.h>
 #include "Shared.h"
+#include "Assets.h"
 
 class Titlescreen
 {
@@ -14,8 +15,9 @@ class Titlescreen
     void enter();
     Shared::Gamemode loop();
   private:
-    int animCounter;
+    int animCounter = 0;
     Arduboy2 &arduboy;
+    
 };
 
 #endif

@@ -6,6 +6,8 @@
 
 #include <Arduboy2.h>
 #include "Shared.h"
+#include "Assets.h"
+#include "Typewriter.h"
 
 class Menu
 {
@@ -13,9 +15,11 @@ class Menu
     Menu(Arduboy2 &ard);
     Shared::Gamemode loop();
   private:
-    int scrollPos;
-    int index;
+    int scrollPos = 0;
+    int index = 0;
+    bool menuSettled = false;
     Arduboy2 &arduboy;
+    Typewriter printer;
 };
 
 #endif
