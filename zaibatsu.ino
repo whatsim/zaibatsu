@@ -31,13 +31,10 @@ Shared::Gamemode mode = Shared::title;
 void setup() {
   
   //initiate arduboy instance
-  
-  arduboy.boot(); // raw hardware
-  arduboy.blank(); // blank the display
-
-  Sprites::drawSelfMasked(2,2,sprite_corner,0);
-  // check for and handle buttons held during start up for system control
-  arduboy.audio.begin();
+  arduboy.begin();
+//  arduboy.boot(); // raw hardware
+//  arduboy.blank(); // blank the display
+//  arduboy.audio.begin();
 
   // here we set the framerate to 30, we do not need to run at default 60 and
   // it saves us battery life.
@@ -50,6 +47,8 @@ void loop() {
     return;
 
   arduboy.clear();
+
+  Sprites::drawSelfMasked(2,2,sprite_corner,0);
   
   switch (mode){
     case Shared::title:
