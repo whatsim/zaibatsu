@@ -1,9 +1,16 @@
 #include <Arduboy2.h>
 #include "Shared.h"
+#include "Assets.h"
+
+// modes
 #include "Titlescreen.h"
 #include "Menu.h"
-#include "Assets.h"
 #include "Hacker.h"
+#include "Success.h"
+#include "Error.h"
+
+
+
 
 // Make an instance of arduboy used for many functions
 Arduboy2 arduboy;
@@ -11,6 +18,8 @@ Arduboy2 arduboy;
 Titlescreen titlescreen = Titlescreen(arduboy);
 Menu menu = Menu(arduboy);
 Hacker hacker = Hacker(arduboy);
+Success success = Success(arduboy);
+Error error = Error(arduboy);
 
 Shared::Gamemode mode = Shared::title;
 
@@ -50,6 +59,12 @@ void loop() {
       mode = menu.loop();
     case Shared::hacker:
       mode = hacker.loop();
+    break;
+    case Shared::success:
+      mode = success.loop();
+    break;
+    case Shared::error:
+      mode = error.loop();
     break;
   }
 
