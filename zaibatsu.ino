@@ -40,6 +40,7 @@ void loop() {
 
   arduboy.invert(false);
   arduboy.clear();
+  arduboy.pollButtons();
 
   Sprites::drawSelfMasked(2,2,sprite_corner,0);
   

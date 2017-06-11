@@ -14,12 +14,11 @@ Shared::Gamemode Error::loop()
   Sprites::drawSelfMasked(99,2,sprite_errorGlyph,0);
   
   Shared::Gamemode mode = Shared::error;
-  if(arduboy.everyXFrames(5)){
-    if(arduboy.pressed(B_BUTTON)){
-      mode = Shared::title;
-    }
+  
+  if(arduboy.justReleased(B_BUTTON)){
+    mode = Shared::title;
   }
-
+  
   if(arduboy.everyXFrames(30)){
     animationToggle != animationToggle;
   }

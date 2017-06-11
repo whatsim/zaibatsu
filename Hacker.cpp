@@ -24,37 +24,38 @@ Shared::Gamemode Hacker::loop()
   if(!hasPuzzle) setup();
   Shared::Gamemode mode = Shared::hacker;
 
-  if (arduboy.everyXFrames(5)){
-    if (arduboy.pressed(LEFT_BUTTON)) {
-      cursorPos --;
-    }
-    if (arduboy.pressed(RIGHT_BUTTON)) {
-      cursorPos ++;
-    }
-    cursorPos += puzzleLength;
-    cursorPos %= puzzleLength;
-    if(digitCorrect[cursorPos] != correct){
-      if (arduboy.pressed(UP_BUTTON) && animater == 0) {
-        combo[cursorPos] ++;
-        animater = 10;
-      }
-      if (arduboy.pressed(DOWN_BUTTON) && animater == 0) {
-        combo[cursorPos] --;
-        animater = -10;
-      }
-      combo[cursorPos] += 10;
-      combo[cursorPos] %= 10;
-    }
-    if (arduboy.pressed(B_BUTTON)){
-      exitTimer ++;
-      if(exitTimer == 5) {
-        hasPuzzle = false;
-        mode = Shared::menu;
-      }
-    } else {
-      exitTimer = 0;
-    }
+  bool fiver = arduboy.everyXFrames(5);
+  
+  if ((arduboy.pressed(LEFT_BUTTON) && fiver) || arduboy.justPressed(LEFT_BUTTON)) {
+    cursorPos --;
   }
+  if ((arduboy.pressed(RIGHT_BUTTON) && fiver) || arduboy.justPressed(RIGHT_BUTTON)) {
+    cursorPos ++;
+  }
+  cursorPos += puzzleLength;
+  cursorPos %= puzzleLength;
+  if(digitCorrect[cursorPos] != correct){
+    if (arduboy.pressed(UP_BUTTON) && fiver && animater == 0) {
+      combo[cursorPos] ++;
+      animater = 10;
+    }
+    if (arduboy.pressed(DOWN_BUTTON) && fiver && animater == 0) {
+      combo[cursorPos] --;
+      animater = -10;
+    }
+    combo[cursorPos] += 10;
+    combo[cursorPos] %= 10;
+  }
+  if (arduboy.pressed(B_BUTTON) && fiver){
+    exitTimer ++;
+    if(exitTimer == 5) {
+      hasPuzzle = false;
+      mode = Shared::menu;
+    }
+  } else {
+    exitTimer = 0;
+  }
+
   
   for(int i = 0; i < puzzleLength; i ++) {
     drawDigit(i);
