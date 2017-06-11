@@ -3,12 +3,14 @@
 #include "Titlescreen.h"
 #include "Menu.h"
 #include "Assets.h"
+#include "Hacker.h"
 
 // Make an instance of arduboy used for many functions
 Arduboy2 arduboy;
 
 Titlescreen titlescreen = Titlescreen(arduboy);
 Menu menu = Menu(arduboy);
+Hacker hacker = Hacker(arduboy);
 
 Shared::Gamemode mode = Shared::title;
 
@@ -46,6 +48,8 @@ void loop() {
     break;
     case Shared::menu:
       mode = menu.loop();
+    case Shared::hacker:
+      mode = hacker.loop();
     break;
   }
 

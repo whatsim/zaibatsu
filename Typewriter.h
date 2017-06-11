@@ -12,7 +12,7 @@ class Typewriter
   public:
     Typewriter();
     int textAt(int x,int y,char* string);
-    
+    void numAt(int x,int y,int digit);
 };
 
 #endif

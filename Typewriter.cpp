@@ -30,3 +30,9 @@ int Typewriter::textAt(int x,int y,char* string)
   
   return i;
 }
+
+void Typewriter::numAt(int x,int y,int digit)
+{
+  int charIndex = digit;
+  Sprites::drawSelfMasked(x,y,sprite_pragmata,digit);
+}

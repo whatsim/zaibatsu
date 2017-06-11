@@ -14,7 +14,9 @@ class Shared
     typedef enum Gamemode {
   	  title,
   	  menu,
-  	  scanner
+  	  scanner,
+      router,
+      hacker
   	};
 };
 
