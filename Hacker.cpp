@@ -35,11 +35,11 @@ Shared::Gamemode Hacker::loop()
   cursorPos += puzzleLength;
   cursorPos %= puzzleLength;
   if(digitCorrect[cursorPos] != correct){
-    if (arduboy.pressed(UP_BUTTON) && fiver && animater == 0) {
+    if (((arduboy.pressed(UP_BUTTON) && fiver) || arduboy.justPressed(UP_BUTTON)) && animater == 0) {
       combo[cursorPos] ++;
       animater = 10;
     }
-    if (arduboy.pressed(DOWN_BUTTON) && fiver && animater == 0) {
+    if (((arduboy.pressed(DOWN_BUTTON) && fiver) || arduboy.justPressed(DOWN_BUTTON)) && animater == 0) {
       combo[cursorPos] --;
       animater = -10;
     }
