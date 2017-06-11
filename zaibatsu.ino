@@ -8,6 +8,8 @@
 #include "Hacker.h"
 #include "Success.h"
 #include "Error.h"
+#include "Scanner.h"
+#include "Router.h"
 
 // Make an instance of arduboy used for many functions
 Arduboy2 arduboy;
@@ -17,6 +19,8 @@ Menu menu = Menu(arduboy);
 Hacker hacker = Hacker(arduboy);
 Success success = Success(arduboy);
 Error error = Error(arduboy);
+Scanner scanner = Scanner(arduboy);
+Router router = Router(arduboy);
 
 Shared::Gamemode mode = Shared::title;
 
@@ -58,6 +62,11 @@ void loop() {
     break;
     case Shared::error:
       mode = error.loop();
+    break;
+    case Shared::scanner:
+      mode = scanner.loop();
+    case Shared::router:
+      mode = router.loop();
     break;
   }
 
