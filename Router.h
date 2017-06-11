@@ -16,6 +16,7 @@ class Router
   private:
     int scrollPos = 0;
     Arduboy2 &arduboy;
+    int exitTimer = 0;
 };
 
 #endif
