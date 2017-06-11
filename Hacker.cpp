@@ -34,11 +34,13 @@ Shared::Gamemode Hacker::loop()
     cursorPos += puzzleLength;
     cursorPos %= puzzleLength;
     if(digitCorrect[cursorPos] != correct){
-      if (arduboy.pressed(UP_BUTTON)) {
+      if (arduboy.pressed(UP_BUTTON) && animater == 0) {
         combo[cursorPos] ++;
+        animater = 10;
       }
-      if (arduboy.pressed(DOWN_BUTTON)) {
+      if (arduboy.pressed(DOWN_BUTTON) && animater == 0) {
         combo[cursorPos] --;
+        animater = -10;
       }
       combo[cursorPos] += 10;
       combo[cursorPos] %= 10;
@@ -81,7 +83,22 @@ Shared::Gamemode Hacker::loop()
 void Hacker::drawDigit(int index){
   int x = 47 + 5 * index;
   int y = 33;
-  Typewriter::numAt(x,y,combo[index]);
+  if(animater == 0){
+    Typewriter::numAt(x,y,combo[index]);
+  } else {
+    if(animater > 0){
+      animater --;
+      Typewriter::numAt(x,y + animater - 10,combo[index]+1);
+    } else {
+      animater ++;
+      Typewriter::numAt(x,y + animater + 10,combo[index]-1);
+    }
+    Typewriter::numAt(x,y + animater,combo[index]);
+    Sprites::drawErase(x,y - 10,sprite_fadeUp,0);
+    Sprites::drawErase(x,y + 10,sprite_fadeDown,0);
+    arduboy.drawRect(x,y - 16, 5, 6, BLACK);
+    arduboy.drawRect(x,y + 10, 5, 6, BLACK);
+  }
   if(index == cursorPos){
     arduboy.drawFastHLine(x, y - 2, 5);
   }
@@ -103,5 +120,6 @@ bool Hacker::checkPuzzle()
     digitCorrect[i] = isCorrect ? correct : incorrect;
     isAllCorrect = isAllCorrect && isCorrect;
   }
+  arduboy.invert(true);
   return isAllCorrect;
 }

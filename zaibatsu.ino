@@ -38,6 +38,7 @@ void loop() {
   if (!(arduboy.nextFrame()))
     return;
 
+  arduboy.invert(false);
   arduboy.clear();
 
   Sprites::drawSelfMasked(2,2,sprite_corner,0);
@@ -60,4 +61,5 @@ void loop() {
   }
 
   arduboy.display();
+  arduboy.idle();
 }

@@ -24,6 +24,7 @@ class Hacker
     int puzzleTimer = 10;
     int exitTimer = 0;
     int cursorPos = 3;
+    int animater = 0;
     Arduboy2 &arduboy;
     int combo[7] = { 0, 0, 0, 0, 0, 0, 0 };
     int solution[7] = { 0, 0, 0, 0, 0, 0, 0 };
