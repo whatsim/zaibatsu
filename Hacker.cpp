@@ -42,14 +42,16 @@ Shared::Gamemode Hacker::loop()
     if (((arduboy.pressed(UP_BUTTON) && fiver) || arduboy.justPressed(UP_BUTTON)) && animater == 0) {
       combo[cursorPos] ++;
       animater = 10;
+      digitCorrect[cursorPos] = unchecked;
     }
     if (((arduboy.pressed(DOWN_BUTTON) && fiver) || arduboy.justPressed(DOWN_BUTTON)) && animater == 0) {
       combo[cursorPos] --;
       animater = -10;
+      digitCorrect[cursorPos] = unchecked;
     }
     combo[cursorPos] += 10;
     combo[cursorPos] %= 10;
-    digitCorrect[cursorPos] = unchecked;
+    
   }
   if (arduboy.pressed(B_BUTTON) && fiver){
     // hold b to quit to menu
@@ -80,6 +82,8 @@ Shared::Gamemode Hacker::loop()
       mode = Shared::success;
       // you did it
     }
+    // flashes the screen when the tick happens
+    arduboy.invert(true);
   }
 
   // draw the timer
@@ -137,6 +141,5 @@ bool Hacker::checkPuzzle()
     digitCorrect[i] = isCorrect ? correct : incorrect;
     isAllCorrect = isAllCorrect && isCorrect;
   }
-  arduboy.invert(true);
   return isAllCorrect;
 }
