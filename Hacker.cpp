@@ -25,7 +25,8 @@ Shared::Gamemode Hacker::loop()
   Shared::Gamemode mode = Shared::hacker;
 
   bool fiver = arduboy.everyXFrames(5);
-  
+
+  // move digit cursor
   if ((arduboy.pressed(LEFT_BUTTON) && fiver) || arduboy.justPressed(LEFT_BUTTON)) {
     cursorPos --;
   }
@@ -34,7 +35,10 @@ Shared::Gamemode Hacker::loop()
   }
   cursorPos += puzzleLength;
   cursorPos %= puzzleLength;
+
   if(digitCorrect[cursorPos] != correct){
+    // can't change correct digits
+    // otherwise change digit up or down, and trigger change animation
     if (((arduboy.pressed(UP_BUTTON) && fiver) || arduboy.justPressed(UP_BUTTON)) && animater == 0) {
       combo[cursorPos] ++;
       animater = 10;
@@ -45,8 +49,10 @@ Shared::Gamemode Hacker::loop()
     }
     combo[cursorPos] += 10;
     combo[cursorPos] %= 10;
+    digitCorrect[cursorPos] = unchecked;
   }
   if (arduboy.pressed(B_BUTTON) && fiver){
+    // hold b to quit to menu
     exitTimer ++;
     if(exitTimer == 5) {
       hasPuzzle = false;
@@ -56,11 +62,12 @@ Shared::Gamemode Hacker::loop()
     exitTimer = 0;
   }
 
-  
+  // draw the puzzle
   for(int i = 0; i < puzzleLength; i ++) {
     drawDigit(i);
   }
-  
+
+  // check for correct digits, and decrement the timer
   if (arduboy.everyXFrames(75)) { // every 5 seconds
     bool isRight = checkPuzzle();
     puzzleTimer --;
@@ -74,7 +81,8 @@ Shared::Gamemode Hacker::loop()
       // you did it
     }
   }
-  
+
+  // draw the timer
   for(int i = 0; i < puzzleTimer; i ++){
     arduboy.drawRect(24 + puzzleTimer * 10, 59, 9, 1);
   }
@@ -86,14 +94,18 @@ void Hacker::drawDigit(int index){
   int x = startX + 5 * index;
   int y = 33;
   if(animater == 0){
+    // the digit isn't moving
     Typewriter::numAt(x,y,combo[index]);
   } else {
+    // the digit is moving up or down
     if(animater > 0){
       animater --;
-      Typewriter::numAt(x,y + animater - 10,combo[index]+1);
+      int upDigit = (combo[index] + 11) % 10;
+      Typewriter::numAt(x,y + animater - 10,upDigit );
     } else {
       animater ++;
-      Typewriter::numAt(x,y + animater + 10,combo[index]-1);
+      int downDigit = (combo[index] + 9) % 10;
+      Typewriter::numAt(x,y + animater + 10,downDigit);
     }
     Typewriter::numAt(x,y + animater,combo[index]);
     Sprites::drawErase(x,y - 10,sprite_fadeUp,0);
@@ -102,14 +114,17 @@ void Hacker::drawDigit(int index){
     arduboy.drawRect(x,y + 10, 5, 6, BLACK);
   }
   if(index == cursorPos){
+    // the digit is selected
     arduboy.drawFastHLine(x, y - 2, 5);
   }
   if(digitCorrect[index] == incorrect){
+    // the digit is known to be wrong
     for(int i = 1; i+=2; i < 7){
       arduboy.drawFastHLine(x, y + i, 5, BLACK); 
     }
   }
   if(digitCorrect[index] == correct){
+    // the digit is right
     arduboy.drawFastHLine(x, y + 7, 5);
   }
 }
