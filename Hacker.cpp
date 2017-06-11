@@ -68,6 +68,17 @@ Shared::Gamemode Hacker::loop()
   for(int i = 0; i < puzzleLength; i ++) {
     drawDigit(i);
   }
+  // draw box around puzzle
+  int boxWidth = (puzzleLength + 2) * 5;
+  int boxMargin = (WIDTH - boxWidth) / 2;
+  arduboy.drawFastHLine(boxMargin,29,boxWidth);
+  arduboy.drawFastVLine(boxMargin,29,6);
+  arduboy.drawFastHLine(boxMargin,35,boxWidth);
+  arduboy.drawFastVLine(boxMargin + boxWidth,29,6);
+
+  // draw background text
+  Typewriter::textAt("4230246",boxMargin - 40,33);
+  Typewriter::textAt("0172652",boxMargin * 2 + boxWidth,33);
 
   // check for correct digits, and decrement the timer
   if (arduboy.everyXFrames(75)) { // every 5 seconds
