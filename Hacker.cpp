@@ -2,13 +2,11 @@
   Hacker.cpp 
 */
 
-#include <Arduboy2.h>
 #include "Hacker.h"
 
 Hacker::Hacker(Arduboy2 &ard)
 {
   arduboy = ard;
-  printer = Typewriter();
 }
 
 void Hacker::setup()
@@ -63,10 +61,13 @@ Shared::Gamemode Hacker::loop()
   if (arduboy.everyXFrames(150)) { // every 5 seconds
     bool isRight = checkPuzzle();
     if(isRight) {
+      hasPuzzle = false;
+      mode = Shared::success;
       // you did it
     }
     puzzleTimer --;
     if(puzzleTimer == 0){
+      mode = Shared::error;
       // you lose
     }
   }
@@ -78,7 +79,7 @@ Shared::Gamemode Hacker::loop()
 void Hacker::drawDigit(int index){
   int x = 47 + 5 * index;
   int y = 33;
-  printer.numAt(x,y,combo[index]);
+  Typewriter::numAt(x,y,combo[index]);
   if(index == cursorPos){
     arduboy.drawFastHLine(x, y - 2, 5);
   }

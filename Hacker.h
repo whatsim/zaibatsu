@@ -25,7 +25,6 @@ class Hacker
     int exitTimer = 0;
     int cursorPos = 3;
     Arduboy2 &arduboy;
-    Typewriter printer;
     int combo[7] = { 0, 0, 0, 0, 0, 0, 0 };
     int solution[7] = { 0, 0, 0, 0, 0, 0, 0 };
     enum check {

@@ -2,16 +2,9 @@
   Typewriter.cpp
 */
 
-#include <Arduboy2.h>
 #include "Typewriter.h"
-#include "Assets.h"
 
 #define CHARWIDTH 5;
-
-Typewriter::Typewriter()
-{
-  
-}
 
 int Typewriter::textAt(int x,int y,char* string)
 {

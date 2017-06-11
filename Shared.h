@@ -6,17 +6,17 @@
 
 #include <Arduboy2.h>
 
-class Shared
+namespace Shared
 {
-  public:
-    Shared();
     float lerp(float a, float b, float f);
     typedef enum Gamemode {
   	  title,
   	  menu,
   	  scanner,
       router,
-      hacker
+      hacker,
+      success,
+      error
   	};
 };
 

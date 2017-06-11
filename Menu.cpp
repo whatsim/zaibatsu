@@ -2,13 +2,11 @@
   Menu.cpp
 */
 
-#include <Arduboy2.h>
 #include "Menu.h"
 
 Menu::Menu(Arduboy2 &ard)
 {
   arduboy = ard;
-  printer = Typewriter();
 }
 
 Shared::Gamemode Menu::loop()
@@ -37,11 +35,11 @@ Shared::Gamemode Menu::loop()
     }
   }
   Sprites::drawSelfMasked(24,26,sprite_menuGylphs,index);
-  int textLength = printer.textAt(58,31,optionNames[index]) * 5;
+  int textLength = Typewriter::textAt(58,31,optionNames[index]) * 5;
   arduboy.drawFastHLine(58,29,textLength);
-  printer.textAt(0,0,"0123456789");
-  printer.textAt(0,5,"ABCEDFGHIJKLM");
-  printer.textAt(0,10,"NOPQRSTUVWXYZ");
+  Typewriter::textAt(0,0,"0123456789");
+  Typewriter::textAt(0,5,"ABCEDFGHIJKLM");
+  Typewriter::textAt(0,10,"NOPQRSTUVWXYZ");
   
   return mode;
 }

@@ -2,7 +2,6 @@
   Titlescreen.cpp 
 */
 
-#include <Arduboy2.h>
 #include "Titlescreen.h"
 
 Titlescreen::Titlescreen(Arduboy2 &ard)

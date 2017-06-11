@@ -19,7 +19,6 @@ class Menu
     int index = 0;
     bool menuSettled = false;
     Arduboy2 &arduboy;
-    Typewriter printer;
     const char *optionNames[3] = { "SCANNER", "POWER MNG", "DIAGNOSTIC" };
 };
 
