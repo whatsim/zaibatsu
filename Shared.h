@@ -9,7 +9,6 @@
 namespace Shared
 {
     float lerp(float a, float b, float f);
-    void drawBox(Arduboy2 &arduboy, int x,int y,int w,int h,int color = WHITE);
     typedef enum Gamemode {
   	  title,
   	  menu,

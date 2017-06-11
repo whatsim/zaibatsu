@@ -71,7 +71,7 @@ Shared::Gamemode Hacker::loop()
   // draw box around puzzle
   int boxWidth = (puzzleLength + 2) * 5;
   int boxMargin = (WIDTH - boxWidth) / 2;
-  Shared::drawBox(arduboy,boxMargin,29,boxWidth,6);
+  arduboy.drawRect(boxMargin,29,boxWidth,6);
   
   // draw background text
   Typewriter::textAt("4230246",boxMargin - 40,33);
