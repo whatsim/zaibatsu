@@ -11,7 +11,11 @@ Error::Error(Arduboy2 &ard)
 
 Shared::Gamemode Error::loop()
 {
-  Sprites::drawSelfMasked(99,2,sprite_errorGlyph,0);
+  float yOffset = random();
+  yOffset *= yOffset * yOffset;
+  yOffset *= 6;
+  yOffset -= 3;
+  Sprites::drawSelfMasked(99,2 + yOffset,sprite_errorGlyph,0);
   
   Shared::Gamemode mode = Shared::error;
   

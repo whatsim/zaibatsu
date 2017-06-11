@@ -82,7 +82,8 @@ Shared::Gamemode Hacker::loop()
 }
 
 void Hacker::drawDigit(int index){
-  int x = 47 + 5 * index;
+  int startX = (WIDTH - (puzzleLength * 5))/2;
+  int x = startX + 5 * index;
   int y = 33;
   if(animater == 0){
     Typewriter::numAt(x,y,combo[index]);
