@@ -58,17 +58,17 @@ Shared::Gamemode Hacker::loop()
     drawDigit(i);
   }
   
-  if (arduboy.everyXFrames(150)) { // every 5 seconds
+  if (arduboy.everyXFrames(75)) { // every 5 seconds
     bool isRight = checkPuzzle();
-    if(isRight) {
-      hasPuzzle = false;
-      mode = Shared::success;
-      // you did it
-    }
     puzzleTimer --;
     if(puzzleTimer == 0){
       mode = Shared::error;
       // you lose
+    }
+    if(isRight) {
+      hasPuzzle = false;
+      mode = Shared::success;
+      // you did it
     }
   }
   

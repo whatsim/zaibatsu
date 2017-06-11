@@ -35,6 +35,7 @@ Shared::Gamemode Menu::loop()
     }
   }
   Sprites::drawSelfMasked(24,26,sprite_menuGylphs,index);
+  
   int textLength = Typewriter::textAt(58,31,optionNames[index]) * 5;
   arduboy.drawFastHLine(58,29,textLength);
   Typewriter::textAt(0,0,"0123456789");
