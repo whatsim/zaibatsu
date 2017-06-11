@@ -20,8 +20,10 @@ Shared::Gamemode Titlescreen::loop()
   Sprites::drawSelfMasked(0,0,sprite_logo,0);
   Sprites::drawSelfMasked(0,0,sprite_logotype,0);
   Shared::Gamemode mode = Shared::title;
-  if(arduboy.pressed(A_BUTTON)){
-    mode = Shared::menu;
+  if(arduboy.everyXFrames(5)){
+    if(arduboy.pressed(A_BUTTON)){
+      mode = Shared::menu;
+    }
   }
   return mode;
 }

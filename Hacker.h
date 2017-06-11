@@ -16,13 +16,24 @@ class Hacker
     Shared::Gamemode loop();
   private:
     void setup();
+    void Hacker::drawDigit(int index);
+    bool checkPuzzle();
+    
     bool hasPuzzle = false;
-    int puzzleTimer = 0;
+    const int puzzleLength = 7;
+    int puzzleTimer = 10;
+    int exitTimer = 0;
+    int cursorPos = 3;
     Arduboy2 &arduboy;
     Typewriter printer;
     int combo[7] = { 0, 0, 0, 0, 0, 0, 0 };
     int solution[7] = { 0, 0, 0, 0, 0, 0, 0 };
-    bool checkPuzzle();
+    enum check {
+      unchecked,
+      correct,
+      incorrect
+    };
+    check digitCorrect[7] = { unchecked };
 };
 
 #endif
