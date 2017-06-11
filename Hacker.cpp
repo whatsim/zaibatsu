@@ -72,7 +72,9 @@ Shared::Gamemode Hacker::loop()
     }
   }
   
-  
+  for(int i = 0; i < puzzleTimer; i ++){
+    arduboy.drawRect(24 + puzzleTimer * 10, 59, 9, 1);
+  }
   return mode;
 }
 

@@ -9,9 +9,6 @@
 #include "Success.h"
 #include "Error.h"
 
-
-
-
 // Make an instance of arduboy used for many functions
 Arduboy2 arduboy;
 
@@ -23,11 +20,6 @@ Error error = Error(arduboy);
 
 Shared::Gamemode mode = Shared::title;
 
-#define X_MID (WIDTH / 2)
-#define Y_MID (HEIGHT /2)
-
-// This function runs once in your game.
-// use it for anything that needs to be set only once in your game.
 void setup() {
   
   //initiate arduboy instance
