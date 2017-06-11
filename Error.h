@@ -17,6 +17,7 @@ class Error
   private:
     int animCounter = 0;
     Arduboy2 &arduboy;
+    bool animationToggle = false;
     
 };
 
