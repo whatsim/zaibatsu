@@ -11,11 +11,10 @@
 class Router
 {
   public:
-    Router(Arduboy2 &ard);
-    Shared::Gamemode loop();
+    Router();
+    Shared::Gamemode loop(Arduboy2 arduboy);
   private:
     int scrollPos = 0;
-    Arduboy2 &arduboy;
     int exitTimer = 0;
 };
 

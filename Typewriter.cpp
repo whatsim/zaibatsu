@@ -13,7 +13,7 @@ int Typewriter::textAt(int x,int y,char* string)
   while (ch != '\0'){
       int charIndex = ch - 48;
       if(charIndex > 9) charIndex -= 7;
-      if(charIndex > 0 && charIndex < 35){
+      if(charIndex >= 0 && charIndex < 35){
         Sprites::drawSelfMasked(x,y,sprite_pragmata,charIndex);
       }
     i++;

@@ -12,20 +12,19 @@
 class Hacker
 {
   public:
-    Hacker(Arduboy2 &ard);
-    Shared::Gamemode loop();
+    Hacker();
+    Shared::Gamemode loop(Arduboy2 arduboy);
   private:
     void setup();
-    void Hacker::drawDigit(int index);
+    void Hacker::drawDigit(Arduboy2 arduboy,int index);
     bool checkPuzzle();
     
     bool hasPuzzle = false;
-    const int puzzleLength = 7;
+    const int puzzleLength = 5;
     int puzzleTimer = 10;
     int exitTimer = 0;
     int cursorPos = 3;
     int animater = 0;
-    Arduboy2 &arduboy;
     int combo[7] = { 0, 0, 0, 0, 0, 0, 0 };
     int solution[7] = { 0, 0, 0, 0, 0, 0, 0 };
     enum check {

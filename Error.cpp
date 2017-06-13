@@ -4,12 +4,12 @@
 
 #include "Error.h"
 
-Error::Error(Arduboy2 &ard)
+Error::Error()
 {
-  arduboy = ard;
+  
 }
 
-Shared::Gamemode Error::loop()
+Shared::Gamemode Error::loop(Arduboy2 arduboy)
 {
   float yOffset = random();
   yOffset *= yOffset * yOffset;
@@ -24,10 +24,10 @@ Shared::Gamemode Error::loop()
   }
   
   if(arduboy.everyXFrames(30)){
-    animationToggle != animationToggle;
+    animationToggle = !animationToggle;
   }
 
-  Typewriter::textAt(2,32,"SYSERROR at 0x6826");
+  Typewriter::textAt(2,32,"SYSERROR AT 0X6826");
   Typewriter::textAt(2,40,"TO ENSURE SYSTEM INTEGRITY TERMI");
   Typewriter::textAt(2,48,"HAS BEEN DISABLED");
   if(animationToggle){

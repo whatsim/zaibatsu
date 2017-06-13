@@ -9,6 +9,7 @@
 namespace Shared
 {
     float lerp(float a, float b, float f);
+    void shuffle(int *array, size_t n);
     typedef enum Gamemode {
   	  title,
   	  menu,

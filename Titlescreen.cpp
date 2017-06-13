@@ -4,9 +4,9 @@
 
 #include "Titlescreen.h"
 
-Titlescreen::Titlescreen(Arduboy2 &ard)
+Titlescreen::Titlescreen()
 {
-  arduboy = ard;
+  
 }
 
 void Titlescreen::enter()
@@ -14,13 +14,16 @@ void Titlescreen::enter()
   
 }
 
-Shared::Gamemode Titlescreen::loop()
+Shared::Gamemode Titlescreen::loop(Arduboy2 arduboy)
 {
-  Sprites::drawSelfMasked(0,0,sprite_logo,0);
-  Sprites::drawSelfMasked(0,0,sprite_logotype,0);
+  Sprites::drawSelfMasked(37,15,sprite_logo,0);
+  Sprites::drawSelfMasked(38 + random(1),43,sprite_logotype,0);
   Shared::Gamemode mode = Shared::title;
   
-  if(arduboy.justReleased(A_BUTTON)){
+  if(arduboy.pressed(B_BUTTON)){
+    arduboy.invert(true);
+  }
+  if(arduboy.justReleased(B_BUTTON)){
     mode = Shared::menu;
   }
   

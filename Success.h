@@ -12,10 +12,8 @@
 class Success
 {
   public:
-    Success(Arduboy2 &ard);
-    Shared::Gamemode loop();
-  private:
-    Arduboy2 &arduboy;
+    Success();
+    Shared::Gamemode loop(Arduboy2 arduboy);
 };
 
 #endif

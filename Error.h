@@ -12,11 +12,10 @@
 class Error
 {
   public:
-    Error(Arduboy2 &ard);
-    Shared::Gamemode loop();
+    Error();
+    Shared::Gamemode loop(Arduboy2 arduboy);
   private:
     int animCounter = 0;
-    Arduboy2 &arduboy;
     bool animationToggle = false;
     
 };

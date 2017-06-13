@@ -11,11 +11,10 @@
 class Scanner
 {
   public:
-    Scanner(Arduboy2 &ard);
-    Shared::Gamemode loop();
+    Scanner();
+    Shared::Gamemode loop(Arduboy2 arduboy);
   private:
     int scrollPos = 0;
-    Arduboy2 &arduboy;
     int exitTimer = 0;
 };
 

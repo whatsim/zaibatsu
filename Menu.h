@@ -12,8 +12,8 @@
 class Menu
 {
   public:
-    Menu(Arduboy2 &ard);
-    Shared::Gamemode loop();
+    Menu();
+    Shared::Gamemode loop(Arduboy2 arduboy);
   private:
     int scrollPos = 0;
     int index = 0;

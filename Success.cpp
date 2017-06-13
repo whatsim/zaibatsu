@@ -4,12 +4,12 @@
 
 #include "Success.h"
 
-Success::Success(Arduboy2 &ard)
+Success::Success()
 {
-  arduboy = ard;
+  
 }
 
-Shared::Gamemode Success::loop()
+Shared::Gamemode Success::loop(Arduboy2 arduboy)
 {
   Shared::Gamemode mode = Shared::success;
   
@@ -18,8 +18,7 @@ Shared::Gamemode Success::loop()
   }
   
   Sprites::drawSelfMasked(24,26,sprite_successGlyph,0);
-  int textLength = Typewriter::textAt(58,31,"Success") * 5;
-  arduboy.drawFastHLine(58,29,textLength);
-  
+  int textLength = Typewriter::textAt(58,31,"SUCCESSFUL") * 5;
+  arduboy.drawFastHLine(51,28,textLength + 7);
   return mode;
 }

@@ -11,12 +11,11 @@
 class Titlescreen
 {
   public:
-    Titlescreen(Arduboy2 &ard);
+    Titlescreen();
     void enter();
-    Shared::Gamemode loop();
+    Shared::Gamemode loop(Arduboy2 arduboy);
   private:
     int animCounter = 0;
-    Arduboy2 &arduboy;
     
 };
 

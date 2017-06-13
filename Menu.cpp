@@ -4,44 +4,48 @@
 
 #include "Menu.h"
 
-Menu::Menu(Arduboy2 &ard)
+Menu::Menu()
 {
-  arduboy = ard;
+  
 }
 
-Shared::Gamemode Menu::loop()
+Shared::Gamemode Menu::loop(Arduboy2 arduboy)
 {
   Shared::Gamemode mode = Shared::menu;
-  bool fiver = arduboy.everyXFrames(5);
-  
-  if((arduboy.pressed(A_BUTTON) && fiver) || arduboy.justReleased(A_BUTTON)){
+  bool holdDelay = arduboy.everyXFrames(30);
+
+  menuSettled = arduboy.justPressed(B_BUTTON) || menuSettled;
+
+  if(arduboy.pressed(B_BUTTON)){
+    arduboy.invert(true);
+  }
+  if(arduboy.justReleased(B_BUTTON) && menuSettled){
     switch(index){
       case 0 :
         mode = Shared::scanner;
+      break;
       case 1 :
         mode = Shared::router;
+      break;
       case 2 :
         mode = Shared::hacker;
       break;
     }
   }
   
-  if((arduboy.pressed(UP_BUTTON) && fiver) || arduboy.justPressed(UP_BUTTON)){
+  if(arduboy.justPressed(UP_BUTTON)){
     index ++;
-    index = index > 2 ? 2 : index;
+    index = index % 3;
   }
-  if((arduboy.pressed(DOWN_BUTTON) && fiver) || arduboy.justPressed(DOWN_BUTTON)){
+  if(arduboy.justPressed(DOWN_BUTTON)){
     index --;
-    index = index < 0 ? 0 : index;
+    index = (index + 3) % 3;
   }
 
   Sprites::drawSelfMasked(24,26,sprite_menuGylphs,index);
   
   int textLength = Typewriter::textAt(58,31,optionNames[index]) * 5;
-  arduboy.drawFastHLine(58,29,textLength);
-  Typewriter::textAt(0,0,"0123456789");
-  Typewriter::textAt(0,5,"ABCEDFGHIJKLM");
-  Typewriter::textAt(0,10,"NOPQRSTUVWXYZ");
+  arduboy.drawFastHLine(51,28,textLength + 7);
   
   return mode;
 }

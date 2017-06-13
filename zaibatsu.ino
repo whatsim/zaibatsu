@@ -14,13 +14,15 @@
 // Make an instance of arduboy used for many functions
 Arduboy2 arduboy;
 
-Titlescreen titlescreen = Titlescreen(arduboy);
-Menu menu = Menu(arduboy);
-Hacker hacker = Hacker(arduboy);
-Success success = Success(arduboy);
-Error error = Error(arduboy);
-Scanner scanner = Scanner(arduboy);
-Router router = Router(arduboy);
+Titlescreen titlescreen = Titlescreen();
+Menu menu = Menu();
+Hacker hacker = Hacker();
+Success success = Success();
+Error error = Error();
+Scanner scanner = Scanner();
+Router router = Router();
+
+int scanlinePos = 0;
 
 Shared::Gamemode mode = Shared::title;
 
@@ -46,30 +48,34 @@ void loop() {
   arduboy.clear();
   arduboy.pollButtons();
 
-  Sprites::drawSelfMasked(2,2,sprite_corner,0);
-  
   switch (mode){
     case Shared::title:
-      mode = titlescreen.loop();
+      mode = titlescreen.loop(arduboy);
     break;
     case Shared::menu:
-      mode = menu.loop();
+      mode = menu.loop(arduboy);
+    break;
     case Shared::hacker:
-      mode = hacker.loop();
+      mode = hacker.loop(arduboy);
     break;
     case Shared::success:
-      mode = success.loop();
+      mode = success.loop(arduboy);
     break;
     case Shared::error:
-      mode = error.loop();
+      mode = error.loop(arduboy);
     break;
     case Shared::scanner:
-      mode = scanner.loop();
+      mode = scanner.loop(arduboy);
+    break;
     case Shared::router:
-      mode = router.loop();
+      mode = router.loop(arduboy);
     break;
   }
 
+  scanlinePos ++;
+  scanlinePos %= 64;
+  arduboy.drawFastHLine(0,scanlinePos,WIDTH, BLACK);
+  Sprites::drawSelfMasked(2,2,sprite_corner,0);
   arduboy.display();
   arduboy.idle();
 }
