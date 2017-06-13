@@ -20,9 +20,6 @@ Shared::Gamemode Titlescreen::loop(Arduboy2 arduboy)
   Sprites::drawSelfMasked(38 + random(1),43,sprite_logotype,0);
   Shared::Gamemode mode = Shared::title;
   
-  if(arduboy.pressed(B_BUTTON)){
-    arduboy.invert(true);
-  }
   if(arduboy.justReleased(B_BUTTON)){
     mode = Shared::menu;
   }

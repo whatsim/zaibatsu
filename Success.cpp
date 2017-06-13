@@ -13,7 +13,7 @@ Shared::Gamemode Success::loop(Arduboy2 arduboy)
 {
   Shared::Gamemode mode = Shared::success;
   
-  if(arduboy.justReleased(A_BUTTON)){
+  if(arduboy.justReleased(B_BUTTON)){
     mode = Shared::menu; 
   }
   

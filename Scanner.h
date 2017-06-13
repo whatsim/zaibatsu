@@ -15,7 +15,6 @@ class Scanner
     Shared::Gamemode loop(Arduboy2 arduboy);
   private:
     int scrollPos = 0;
-    int exitTimer = 0;
 };
 
 #endif

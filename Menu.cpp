@@ -16,9 +16,6 @@ Shared::Gamemode Menu::loop(Arduboy2 arduboy)
 
   menuSettled = arduboy.justPressed(B_BUTTON) || menuSettled;
 
-  if(arduboy.pressed(B_BUTTON)){
-    arduboy.invert(true);
-  }
   if(arduboy.justReleased(B_BUTTON) && menuSettled){
     switch(index){
       case 0 :

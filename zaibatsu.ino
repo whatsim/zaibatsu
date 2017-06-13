@@ -1,4 +1,6 @@
 #include <Arduboy2.h>
+#include <ArduboyTones.h>
+
 #include "Shared.h"
 #include "Assets.h"
 
@@ -13,6 +15,7 @@
 
 // Make an instance of arduboy used for many functions
 Arduboy2 arduboy;
+ArduboyTones sound(arduboy.audio.enabled);
 
 Titlescreen titlescreen = Titlescreen();
 Menu menu = Menu();
@@ -23,16 +26,17 @@ Scanner scanner = Scanner();
 Router router = Router();
 
 int scanlinePos = 0;
+int exitTimer = 0;
 
 Shared::Gamemode mode = Shared::title;
 
 void setup() {
   
   //initiate arduboy instance
-  arduboy.begin();
-//  arduboy.boot(); // raw hardware
-//  arduboy.blank(); // blank the display
-//  arduboy.audio.begin();
+//  arduboy.begin();
+  arduboy.boot(); // raw hardware
+  arduboy.blank(); // blank the display
+  arduboy.audio.begin();
 
   // here we set the framerate to 30, we do not need to run at default 60 and
   // it saves us battery life.
@@ -44,7 +48,20 @@ void loop() {
   if (!(arduboy.nextFrame()))
     return;
 
-  arduboy.invert(false);
+  if(arduboy.justReleased(A_BUTTON | B_BUTTON)){
+    sound.tone(880,50);
+  }
+
+  if(arduboy.justReleased(UP_BUTTON | DOWN_BUTTON | LEFT_BUTTON | RIGHT_BUTTON)){
+    sound.tone(220,50);
+  }
+
+  if(arduboy.justReleased(B_BUTTON)){
+    arduboy.invert(true);
+  } else {
+    arduboy.invert(false);
+  }
+  
   arduboy.clear();
   arduboy.pollButtons();
 
@@ -70,6 +87,19 @@ void loop() {
     case Shared::router:
       mode = router.loop(arduboy);
     break;
+  }
+
+  if(arduboy.everyXFrames(5)){
+    if (arduboy.pressed(A_BUTTON)){
+      // hold b to quit to menu
+      exitTimer ++;
+      if(exitTimer == 5) {        
+        mode = Shared::menu;
+        hacker.hasPuzzle = false;
+      }
+    } else if(!arduboy.pressed(A_BUTTON)){
+      exitTimer = 0;
+    }
   }
 
   scanlinePos ++;

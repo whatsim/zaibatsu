@@ -14,18 +14,18 @@ class Hacker
   public:
     Hacker();
     Shared::Gamemode loop(Arduboy2 arduboy);
+    bool hasPuzzle = false;
   private:
     void setup();
     void Hacker::drawDigit(Arduboy2 arduboy,int index);
     bool checkPuzzle();
     
-    bool hasPuzzle = false;
-    const int puzzleLength = 5;
-    int puzzleTimer = 10;
-    int exitTimer = 0;
+    const int puzzleLength = 7;
+    int puzzleTimer = 4;
+    int checkTimer = 0;
     int cursorPos = 3;
     int animater = 0;
-    int combo[7] = { 0, 0, 0, 0, 0, 0, 0 };
+    int combo[7] = { 5, 5, 5, 5, 5, 5, 5 };
     int solution[7] = { 0, 0, 0, 0, 0, 0, 0 };
     enum check {
       unchecked,
