@@ -5,6 +5,8 @@
 #define Hacker_h
 
 #include <Arduboy2.h>
+#include <ArduboyTones.h>
+
 #include "Shared.h"
 #include "Assets.h"
 #include "Typewriter.h"
@@ -13,7 +15,7 @@ class Hacker
 {
   public:
     Hacker();
-    Shared::Gamemode loop(Arduboy2 arduboy);
+    Shared::Gamemode loop(Arduboy2 arduboy, ArduboyTones sound);
     bool hasPuzzle = false;
   private:
     void setup();

@@ -9,7 +9,7 @@ Error::Error()
   
 }
 
-Shared::Gamemode Error::loop(Arduboy2 arduboy)
+Shared::Gamemode Error::loop(Arduboy2 arduboy, ArduboyTones sound)
 {
   float yOffset = random();
   yOffset *= yOffset * yOffset;
@@ -18,8 +18,13 @@ Shared::Gamemode Error::loop(Arduboy2 arduboy)
   Sprites::drawSelfMasked(99,2 + yOffset,sprite_errorGlyph,0);
   
   Shared::Gamemode mode = Shared::error;
+
+  if(arduboy.justPressed(B_BUTTON)){
+    pressedB = true;
+  }
   
-  if(arduboy.justReleased(B_BUTTON)){
+  if(arduboy.justReleased(A_BUTTON) || (pressedB && arduboy.justReleased(B_BUTTON))){
+    pressedB = false;
     mode = Shared::title;
   }
   
@@ -31,6 +36,7 @@ Shared::Gamemode Error::loop(Arduboy2 arduboy)
   Typewriter::textAt(2,40,"TO ENSURE SYSTEM INTEGRITY TERMI");
   Typewriter::textAt(2,48,"HAS BEEN DISABLED");
   if(animationToggle){
+    sound.tone(110,128);
     Typewriter::textAt(2,56,"CONTACT DARPATEC SYSTEM ADMINIST");
   }
   

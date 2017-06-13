@@ -9,12 +9,23 @@ Success::Success()
   
 }
 
-Shared::Gamemode Success::loop(Arduboy2 arduboy)
+Shared::Gamemode Success::loop(Arduboy2 arduboy, ArduboyTones sound)
 {
   Shared::Gamemode mode = Shared::success;
   
-  if(arduboy.justReleased(B_BUTTON)){
-    mode = Shared::menu; 
+  if(arduboy.justPressed(B_BUTTON)){
+    pressedB = true;
+  }
+  
+  if(arduboy.justReleased(A_BUTTON) || (pressedB && arduboy.justReleased(B_BUTTON))){
+    pressedB = false;
+    mode = Shared::title;
+  }
+  
+
+  if(doChime){
+    doChime = false;
+    sound.tone(440, 256, 880, 256, 659, 512);
   }
   
   Sprites::drawSelfMasked(24,26,sprite_successGlyph,0);

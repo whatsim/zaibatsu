@@ -49,7 +49,7 @@ void loop() {
     return;
 
   if(arduboy.justReleased(A_BUTTON | B_BUTTON)){
-    sound.tone(880,50);
+    sound.tone(440,50);
   }
 
   if(arduboy.justReleased(UP_BUTTON | DOWN_BUTTON | LEFT_BUTTON | RIGHT_BUTTON)){
@@ -73,13 +73,13 @@ void loop() {
       mode = menu.loop(arduboy);
     break;
     case Shared::hacker:
-      mode = hacker.loop(arduboy);
+      mode = hacker.loop(arduboy, sound);
     break;
     case Shared::success:
-      mode = success.loop(arduboy);
+      mode = success.loop(arduboy, sound);
     break;
     case Shared::error:
-      mode = error.loop(arduboy);
+      mode = error.loop(arduboy, sound);
     break;
     case Shared::scanner:
       mode = scanner.loop(arduboy);
@@ -96,6 +96,7 @@ void loop() {
       if(exitTimer == 5) {        
         mode = Shared::menu;
         hacker.hasPuzzle = false;
+        sound.tone(110,100);
       }
     } else if(!arduboy.pressed(A_BUTTON)){
       exitTimer = 0;

@@ -13,16 +13,19 @@ void Hacker::setup()
 {
   int values[10] = {0,1,2,3,4,5,6,7,8,9};
   Shared::shuffle(values,10);
+  int comboValues[10] = {0,1,2,3,4,5,6,7,8,9};
+  Shared::shuffle(comboValues,10);
   for(int i = 0; i < puzzleLength; i++){
     solution[i] = values[i];
-    combo[i] = 5;  
+    combo[i] = comboValues[i];  
     digitCorrect[i] = unchecked;
   }
   puzzleTimer = 5;
+  checkTimer = 0;
   hasPuzzle = true;
 }
 
-Shared::Gamemode Hacker::loop(Arduboy2 arduboy)
+Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
 {
   if(!hasPuzzle) setup();
   Shared::Gamemode mode = Shared::hacker;
@@ -30,13 +33,15 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy)
   
 
   // move digit cursor
-  if (arduboy.justPressed(LEFT_BUTTON) && animater == 0) {
+  if (arduboy.justPressed(LEFT_BUTTON) && abs(animater) < 4) {
     cursorPos --;
     while(digitCorrect[cursorPos] == correct && cursorPos > 0) cursorPos --;
+    animater = 0;
   }
-  if (arduboy.justPressed(RIGHT_BUTTON) && animater == 0) {
+  if (arduboy.justPressed(RIGHT_BUTTON) && abs(animater) < 4) {
     cursorPos ++;
     while(digitCorrect[cursorPos] == correct && cursorPos < puzzleLength) cursorPos ++;
+    animater = 0;
   }
   cursorPos += puzzleLength;
   cursorPos %= puzzleLength;
@@ -74,7 +79,8 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy)
   Typewriter::textAt("4230246",boxMargin - 40,33);
   Typewriter::textAt("0172652",boxMargin * 2 + boxWidth,33);
 
-  if(arduboy.justReleased(B_BUTTON) || checkTimer == 150){
+  if(arduboy.justReleased(B_BUTTON) || checkTimer == 140){
+    sound.tone(440,50);
     arduboy.invert(true);
     bool isRight = checkPuzzle();
     puzzleTimer --;

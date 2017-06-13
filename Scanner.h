@@ -14,7 +14,20 @@ class Scanner
     Scanner();
     Shared::Gamemode loop(Arduboy2 arduboy);
   private:
-    int scrollPos = 0;
+    void drawMeter(Arduboy2 arduboy);
+    void drawPing(Arduboy2 arduboy);
+    void drawTarget(Arduboy2 arduboy);
+    void drawTickAtAngle(Arduboy2 arduboy, float angle);
+    void setup();
+    void placeTarget();
+    bool hitTarget();
+    int scanPercent = 0;
+    int charges = 4;
+    float pingAngle = 0;
+    bool isSetup;
+    bool isSweeping = false;
+    float targetAngle = 0;
+    float targetAperture = 0;
 };
 
 #endif
