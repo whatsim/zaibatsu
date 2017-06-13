@@ -6,7 +6,7 @@
 
 Router::Router()
 {
-  Serial.begin(9600);  
+  
 }
 
 void Router::setup()
@@ -26,7 +26,7 @@ Shared::Gamemode Router::loop(Arduboy2 arduboy)
 {
   Shared::Gamemode mode = Shared::router;
   if(!isSetup) setup();
-  if(arduboy.everyXFrames(4)) {
+  if(arduboy.everyXFrames(3)) {
     if(puzzleTimer > 0){
       puzzleTimer --;
     } else {
@@ -122,13 +122,6 @@ bool Router::checkBoard(){
   for(int i = 0; i < 5; i++){
     
     bool isCorrect = tumblerPos[i] - 2 < inputPos - 3 && tumblerPos[i] + 2 > inputPos - 3;
-    if(i == cursorPos){
-      Serial.println("asda");  
-      Serial.println(tumblerPos[i]);  
-      Serial.println(inputPos);  
-    }
-    
-    
     tumblerInPlace[i] = isCorrect;
     isAllCorrect = isAllCorrect && isCorrect;
   }
