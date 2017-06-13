@@ -6,7 +6,7 @@
 
 Router::Router()
 {
-  
+  Serial.begin(9600);  
 }
 
 void Router::setup()
@@ -26,7 +26,7 @@ Shared::Gamemode Router::loop(Arduboy2 arduboy)
 {
   Shared::Gamemode mode = Shared::router;
   if(!isSetup) setup();
-  if(arduboy.everyXFrames(8)) {
+  if(arduboy.everyXFrames(4)) {
     if(puzzleTimer > 0){
       puzzleTimer --;
     } else {
@@ -100,6 +100,9 @@ void Router::drawBoard(Arduboy2 arduboy)
 
     arduboy.drawFastHLine(startX + usedX + 1, 6+tumblerPos[i]-2, w - 2);
     arduboy.drawFastHLine(startX + usedX + 1, 6+tumblerPos[i]+2, w - 2);
+    if(tumblerInPlace[i]){
+      arduboy.fillRect(startX + usedX + 1, 6+tumblerPos[i]-2, w - 2,4);
+    }
     Sprites::drawSelfMasked(28,inputPos,sprite_arrow,0);
     Sprites::drawSelfMasked(89,inputPos,sprite_end,0);
     usedX += w + 2;
@@ -115,8 +118,18 @@ void Router::drawTimer(Arduboy2 arduboy)
 
 bool Router::checkBoard(){
   bool isAllCorrect = true;
+  
   for(int i = 0; i < 5; i++){
-    bool isCorrect = tumblerPos - 2 < inputPos && tumblerPos + 2 > inputPos;
+    
+    bool isCorrect = tumblerPos[i] - 2 < inputPos - 3 && tumblerPos[i] + 2 > inputPos - 3;
+    if(i == cursorPos){
+      Serial.println("asda");  
+      Serial.println(tumblerPos[i]);  
+      Serial.println(inputPos);  
+    }
+    
+    
+    tumblerInPlace[i] = isCorrect;
     isAllCorrect = isAllCorrect && isCorrect;
   }
   return isAllCorrect;

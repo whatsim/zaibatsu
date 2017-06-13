@@ -6,7 +6,7 @@
 
 Scanner::Scanner()
 {
-Serial.begin(9600);  
+
 }
 
 void Scanner::setup()
