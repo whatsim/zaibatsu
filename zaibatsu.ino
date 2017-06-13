@@ -96,6 +96,8 @@ void loop() {
       if(exitTimer == 5) {        
         mode = Shared::menu;
         hacker.hasPuzzle = false;
+        scanner.isSetup = false;
+        router.isSetup = false;
         sound.tone(110,100);
       }
     } else if(!arduboy.pressed(A_BUTTON)){

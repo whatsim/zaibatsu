@@ -13,8 +13,19 @@ class Router
   public:
     Router();
     Shared::Gamemode loop(Arduboy2 arduboy);
+    bool isSetup = false;
   private:
-    int scrollPos = 0;
+    void setup();
+    void drawBoard(Arduboy2 arduboy);
+    void drawTimer(Arduboy2 arduboy);
+    bool checkBoard();
+    int puzzleTimer = 123;
+    int cursorPos = 2;
+    int inputPos = 22;
+    float momentum = 0;
+    float tumblerPos[5] = {22,22,22,22,22};
+    
+    
 };
 
 #endif
