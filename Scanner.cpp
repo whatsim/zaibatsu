@@ -119,9 +119,9 @@ void Scanner::drawMeter(Arduboy2 arduboy){
 void Scanner::drawPing(Arduboy2 arduboy){
   float x = 63 + cos(pingAngle) * 35;
   float y = 48 + sin(pingAngle) * 35;
-  arduboy.drawLine(x,y,64,48);
-  arduboy.drawLine(x-1,y-1,63,47,BLACK);
-  arduboy.drawLine(x-2,y-1,63,47,BLACK);
+  arduboy.drawLine(x,y,63,50);
+  arduboy.drawLine(x-1,y-1,62,52,BLACK);
+  arduboy.drawLine(x-2,y-1,62,52,BLACK);
 }
 
 void Scanner::drawTarget(Arduboy2 arduboy){
