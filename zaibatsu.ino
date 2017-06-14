@@ -12,6 +12,7 @@
 #include "Error.h"
 #include "Scanner.h"
 #include "Router.h"
+#include "Dice.h"
 
 // Make an instance of arduboy used for many functions
 Arduboy2 arduboy;
@@ -24,6 +25,7 @@ Success success = Success();
 Error error = Error();
 Scanner scanner = Scanner();
 Router router = Router();
+Dice dice = Dice();
 
 int scanlinePos = 0;
 int exitTimer = 0;
@@ -70,6 +72,7 @@ void loop() {
       mode = titlescreen.loop(arduboy);
     break;
     case Shared::menu:
+      arduboy.initRandomSeed();
       mode = menu.loop(arduboy);
     break;
     case Shared::hacker:
@@ -87,17 +90,25 @@ void loop() {
     case Shared::router:
       mode = router.loop(arduboy);
     break;
+    case Shared::dice:
+      mode = dice.loop(arduboy);
+    break;
   }
 
   if(arduboy.everyXFrames(5)){
     if (arduboy.pressed(A_BUTTON)){
       // hold b to quit to menu
       exitTimer ++;
-      if(exitTimer == 5) {        
-        mode = Shared::menu;
-        hacker.hasPuzzle = false;
-        scanner.isSetup = false;
-        router.isSetup = false;
+      if(exitTimer == 5) {
+        if(mode == Shared::menu){
+          mode = Shared::dice;
+        } else {
+          mode = Shared::menu;
+          hacker.hasPuzzle = false;
+          scanner.isSetup = false;
+          router.isSetup = false;
+          dice.result = 0;
+        }
         sound.tone(110,100);
       }
     } else if(!arduboy.pressed(A_BUTTON)){

@@ -78,7 +78,7 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
   // draw box around puzzle
   int boxWidth = (puzzleLength + 2) * 5;
   int boxMargin = (WIDTH - boxWidth) / 2;
-  arduboy.drawRect(boxMargin,29,boxWidth + 1,15);
+  arduboy.drawRect(boxMargin,27,boxWidth + 1,15);
   
   // draw background text
 
@@ -94,8 +94,8 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
   }
 
   for(int i = 0; i < 7; i++){
-    Typewriter::numAt(boxMargin - 40 + i*5,33,leftNoise[i]);
-    Typewriter::numAt(boxMargin + boxWidth + 5 + i*5,33,rightNoise[i]);
+    Typewriter::numAt(boxMargin - 40 + i*5,31,leftNoise[i]);
+    Typewriter::numAt(boxMargin + boxWidth + 5 + i*5,31,rightNoise[i]);
   }
   
   if(!ended  && (arduboy.justReleased(B_BUTTON) || checkTimer == 140)){
@@ -137,7 +137,7 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
 void Hacker::drawDigit(Arduboy2 arduboy,int index){
   int startX = (WIDTH - (puzzleLength * 5))/2;
   int x = startX + 5 * index;
-  int y = 33;
+  int y = 31;
   if(animater == 0 || index != cursorPos){
     // the digit isn't moving
     Typewriter::numAt(x,y,combo[index]);

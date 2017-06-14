@@ -17,7 +17,8 @@ namespace Shared
       router,
       hacker,
       success,
-      error
+      error,
+      dice
   	};
 };
 
