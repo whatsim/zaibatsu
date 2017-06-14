@@ -29,7 +29,7 @@ Shared::Gamemode Scanner::loop(Arduboy2 arduboy)
     if(isSweeping){
       
       if(hitTarget()){
-        scanPercent += 9;
+        scanPercent += 10;
         if(abs(pingAngle - targetAngle) < 0.06) charges ++;
       }
       pingAngle = PI;
@@ -41,7 +41,7 @@ Shared::Gamemode Scanner::loop(Arduboy2 arduboy)
       isSweeping = true;
     }
   }
-  if(!ended && scanPercent > 0 && arduboy.everyXFrames(5)){
+  if(!ended && scanPercent > 0 && arduboy.everyXFrames(4)){
     scanPercent --;
   }
   if(pingAngle < 2 * PI){
