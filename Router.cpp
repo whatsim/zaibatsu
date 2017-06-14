@@ -18,6 +18,7 @@ void Router::setup()
   exitTimer = 60;
   for(int i = 0; i < 5; i++){
     tumblerPos[i] = random(0,42);
+    tumblerDivisors[i] = random(1,40) / 10.0;
   }
   
   isSetup = true;
@@ -27,7 +28,7 @@ Shared::Gamemode Router::loop(Arduboy2 arduboy)
 {
   Shared::Gamemode mode = Shared::router;
   if(!isSetup) setup();
-  if(arduboy.everyXFrames(5)) {
+  if(arduboy.everyXFrames(3)) {
     if(puzzleTimer > 0){
       puzzleTimer --;
     } else {
@@ -63,12 +64,12 @@ Shared::Gamemode Router::loop(Arduboy2 arduboy)
   
   tumblerPos[cursorPos] += momentum;
   if(cursorPos - 1 >= 0){
-    tumblerPos[cursorPos-1] += momentum/2;
+    tumblerPos[cursorPos-1] += momentum/tumblerDivisors[cursorPos - 1];
     tumblerPos[cursorPos-1] = tumblerPos[cursorPos-1] > 0 ? tumblerPos[cursorPos-1] : 0;
     tumblerPos[cursorPos-1] = tumblerPos[cursorPos-1] < 42 ? tumblerPos[cursorPos-1] : 42;
   }
   if(cursorPos + 1 < 5){
-    tumblerPos[cursorPos+1] += momentum/2;
+    tumblerPos[cursorPos+1] += momentum/tumblerDivisors[cursorPos + 1];
     tumblerPos[cursorPos+1] = tumblerPos[cursorPos+1] > 0 ? tumblerPos[cursorPos+1] : 0;
     tumblerPos[cursorPos+1] = tumblerPos[cursorPos+1] < 42 ? tumblerPos[cursorPos+1] : 42;
   }

@@ -30,7 +30,7 @@ Shared::Gamemode Scanner::loop(Arduboy2 arduboy)
       
       if(hitTarget()){
         scanPercent += 9;
-        if(abs(pingAngle - targetAngle) < 0.1) charges ++;
+        if(abs(pingAngle - targetAngle) < 0.06) charges ++;
       }
       pingAngle = PI;
       isSweeping = false;
@@ -145,6 +145,6 @@ bool Scanner::hitTarget(){
 
 void Scanner::placeTarget(){
   targetAngle = (PI * (7.0/6.0)) + (random(0,100)/100.0 * (2.0 * PI)/3.0);
-  targetAperture = random(1,20)/100.0 + 0.1;
+  targetAperture = random(1,5)/100.0 + 0.1;
 }
 
