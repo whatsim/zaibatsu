@@ -26,7 +26,7 @@ Shared::Gamemode Router::loop(Arduboy2 arduboy)
 {
   Shared::Gamemode mode = Shared::router;
   if(!isSetup) setup();
-  if(arduboy.everyXFrames(3)) {
+  if(arduboy.everyXFrames(5)) {
     if(puzzleTimer > 0){
       puzzleTimer --;
     } else {

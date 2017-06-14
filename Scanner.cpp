@@ -39,7 +39,7 @@ Shared::Gamemode Scanner::loop(Arduboy2 arduboy)
       isSweeping = true;
     }
   }
-  if(scanPercent > 0 && arduboy.everyXFrames(4)){
+  if(scanPercent > 0 && arduboy.everyXFrames(5)){
     scanPercent --;
   }
   if(pingAngle < 2 * PI){

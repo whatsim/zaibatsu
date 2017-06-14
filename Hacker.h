@@ -23,7 +23,7 @@ class Hacker
     bool checkPuzzle();
     
     const int puzzleLength = 7;
-    int puzzleTimer = 4;
+    int puzzleTimer = 6;
     int checkTimer = 0;
     int cursorPos = 3;
     int animater = 0;

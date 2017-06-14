@@ -20,7 +20,7 @@ void Hacker::setup()
     combo[i] = comboValues[i];  
     digitCorrect[i] = unchecked;
   }
-  puzzleTimer = 5;
+  puzzleTimer = 6;
   checkTimer = 0;
   hasPuzzle = true;
 }
