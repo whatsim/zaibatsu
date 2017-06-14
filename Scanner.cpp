@@ -16,6 +16,8 @@ void Scanner::setup()
   pingAngle = 0;
   isSetup = true;
   placeTarget();
+  ended = false;
+  endTimer = 90;
 }
 
 Shared::Gamemode Scanner::loop(Arduboy2 arduboy)
@@ -23,7 +25,7 @@ Shared::Gamemode Scanner::loop(Arduboy2 arduboy)
   Shared::Gamemode mode = Shared::scanner;
   if(!isSetup) setup();
   
-  if(arduboy.justPressed(B_BUTTON)){
+  if(!ended && arduboy.justPressed(B_BUTTON)){
     if(isSweeping){
       
       if(hitTarget()){
@@ -39,13 +41,36 @@ Shared::Gamemode Scanner::loop(Arduboy2 arduboy)
       isSweeping = true;
     }
   }
-  if(scanPercent > 0 && arduboy.everyXFrames(5)){
+  if(!ended && scanPercent > 0 && arduboy.everyXFrames(5)){
     scanPercent --;
   }
   if(pingAngle < 2 * PI){
     pingAngle += 0.10;
   } else {
     isSweeping = false;
+  }
+
+  if(ended){
+    if(arduboy.everyXFrames(10)){
+      charges ++;
+      charges %= 5;
+    }
+  }
+
+  if(charges < 1 && scanPercent == 0 && !isSweeping){
+    isSetup = false;
+    mode = Shared::error;
+  }
+  if(scanPercent > 32){
+    ended = true;
+  }
+  
+  if(ended){
+    endTimer --;
+    if(endTimer <= 0){
+      isSetup = false;
+      mode = Shared::success;
+    }
   }
 
   Sprites::drawSelfMasked(37,24,sprite_scanner,random(3));
@@ -55,15 +80,8 @@ Shared::Gamemode Scanner::loop(Arduboy2 arduboy)
     drawPing(arduboy);
   }
   drawMeter(arduboy);
-  drawTarget(arduboy);
-
-  if(charges < 1 && scanPercent == 0 && !isSweeping){
-      isSetup = false;
-      mode = Shared::error;
-  }
-  if(scanPercent > 32){
-    isSetup = false;
-    mode = Shared::success;
+  if(!ended){
+    drawTarget(arduboy);
   }
   
   return mode;

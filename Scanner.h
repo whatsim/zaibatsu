@@ -28,6 +28,8 @@ class Scanner
     bool isSweeping = false;
     float targetAngle = 0;
     float targetAperture = 0;
+    bool ended = false;
+    int endTimer = 90;
 };
 
 #endif

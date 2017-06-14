@@ -15,6 +15,7 @@ void Router::setup()
   cursorPos = 2;
   inputPos = random(6,42);
   momentum = 0;
+  exitTimer = 60;
   for(int i = 0; i < 5; i++){
     tumblerPos[i] = random(0,42);
   }
@@ -30,8 +31,13 @@ Shared::Gamemode Router::loop(Arduboy2 arduboy)
     if(puzzleTimer > 0){
       puzzleTimer --;
     } else {
-      isSetup = false;
-      mode = Shared::error;
+      if(checkBoard()){
+        isSetup = false;
+        mode = Shared::success;
+      } else {
+        isSetup = false;
+        mode = Shared::error;
+      }
     }
   }
 
@@ -75,8 +81,13 @@ Shared::Gamemode Router::loop(Arduboy2 arduboy)
   drawBoard(arduboy);
 
   if(checkBoard()){
-    mode = Shared::success;
-    isSetup = false;
+    exitTimer --;
+    if(exitTimer <= 0){
+      mode = Shared::success;
+      isSetup = false;
+    }
+  } else {
+    exitTimer = 60;
   }
 
   return mode;

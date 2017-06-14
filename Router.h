@@ -22,6 +22,7 @@ class Router
     int puzzleTimer = 123;
     int cursorPos = 2;
     int inputPos = 22;
+    int exitTimer = 60;
     float momentum = 0;
     float tumblerPos[5] = {22,22,22,22,22};
     bool tumblerInPlace[5] = {false,false,false,false,false};

@@ -22,7 +22,11 @@ void Hacker::setup()
   }
   puzzleTimer = 6;
   checkTimer = 0;
+  cursorPos = 3;
   hasPuzzle = true;
+  ended = false;
+  wasRight = false;
+  endTimer = 90;
 }
 
 Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
@@ -33,12 +37,12 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
   
 
   // move digit cursor
-  if (arduboy.justPressed(LEFT_BUTTON) && abs(animater) < 4) {
+  if (!ended  && arduboy.justPressed(LEFT_BUTTON) && abs(animater) < 4) {
     cursorPos --;
     while(digitCorrect[cursorPos] == correct && cursorPos > 0) cursorPos --;
     animater = 0;
   }
-  if (arduboy.justPressed(RIGHT_BUTTON) && abs(animater) < 4) {
+  if (!ended  && arduboy.justPressed(RIGHT_BUTTON) && abs(animater) < 4) {
     cursorPos ++;
     while(digitCorrect[cursorPos] == correct && cursorPos < puzzleLength) cursorPos ++;
     animater = 0;
@@ -48,7 +52,7 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
 
   
 
-  if(digitCorrect[cursorPos] != correct){
+  if(!ended  && digitCorrect[cursorPos] != correct){
     // can't change correct digits
     // otherwise change digit up or down, and trigger change animation
     if (arduboy.pressed(UP_BUTTON) && animater == 0) {
@@ -76,23 +80,17 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
   arduboy.drawRect(boxMargin,29,boxWidth + 1,15);
   
   // draw background text
-  Typewriter::textAt("4230246",boxMargin - 40,33);
+  Typewriter::textAt("ABDEFHS",boxMargin - 40,33);
   Typewriter::textAt("0172652",boxMargin * 2 + boxWidth,33);
-
-  if(arduboy.justReleased(B_BUTTON) || checkTimer == 140){
+  
+  if(!ended  && (arduboy.justReleased(B_BUTTON) || checkTimer == 140)){
     sound.tone(440,50);
     arduboy.invert(true);
     bool isRight = checkPuzzle();
     puzzleTimer --;
-    if(puzzleTimer == 0){
-      hasPuzzle = false;
-      mode = Shared::error;
-      // you lose
-    }
-    if(isRight) {
-      hasPuzzle = false;
-      mode = Shared::success;
-      // you did it
+    if(puzzleTimer == 0 || isRight){
+      ended = true;
+      wasRight = isRight;
     }
     checkTimer = 0;
   } else {
@@ -100,10 +98,24 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
   }
    
   // draw the timer
-  for(int i = 0; i < puzzleTimer; i ++){
-    int timerX = (128 - puzzleTimer * 10) / 2;
-    arduboy.drawRect(timerX + i * 10, 59, 9, 1);
+  if(!ended){
+    for(int i = 0; i < puzzleTimer; i ++){
+      int timerX = (128 - puzzleTimer * 10) / 2;
+      arduboy.drawRect(timerX + i * 10, 59, 9, 1);
+    }
   }
+  if(ended){
+    endTimer --;
+    if(endTimer <= 0){
+      hasPuzzle = false;
+      if(!wasRight){
+        mode = Shared::error;
+      } else {
+        mode = Shared::success;
+      }
+    }
+  }
+  
   return mode;
 }
 
@@ -132,7 +144,7 @@ void Hacker::drawDigit(Arduboy2 arduboy,int index){
     arduboy.fillRect(x,y - 20, 5, 10, BLACK);
     arduboy.fillRect(x,y + 17, 5, 10, BLACK);
   }
-  if(index == cursorPos){
+  if(!ended && index == cursorPos){
     // the digit is selected
     arduboy.drawFastHLine(x, y - 2, 6);
   }

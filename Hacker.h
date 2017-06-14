@@ -35,6 +35,9 @@ class Hacker
       incorrect
     };
     check digitCorrect[7] = { unchecked };
+    bool ended = false;
+    bool wasRight = false;
+    int endTimer = 90;
 };
 
 #endif
