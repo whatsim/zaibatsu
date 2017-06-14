@@ -72,7 +72,6 @@ void loop() {
       mode = titlescreen.loop(arduboy);
     break;
     case Shared::menu:
-      arduboy.initRandomSeed();
       mode = menu.loop(arduboy);
     break;
     case Shared::hacker:
@@ -100,6 +99,7 @@ void loop() {
       // hold b to quit to menu
       exitTimer ++;
       if(exitTimer == 5) {
+        arduboy.initRandomSeed();
         if(mode == Shared::menu){
           mode = Shared::dice;
         } else {
