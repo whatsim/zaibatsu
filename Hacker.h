@@ -29,6 +29,8 @@ class Hacker
     int animater = 0;
     int combo[7] = { 5, 5, 5, 5, 5, 5, 5 };
     int solution[7] = { 0, 0, 0, 0, 0, 0, 0 };
+    int leftNoise[7] = { 2, 6, 3, 0, 9, 7, 3 };
+    int rightNoise[7] = { 1, 8, 6, 9, 0, 3, 2 };
     enum check {
       unchecked,
       correct,

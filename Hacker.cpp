@@ -15,6 +15,7 @@ void Hacker::setup()
   Shared::shuffle(values,10);
   int comboValues[10] = {0,1,2,3,4,5,6,7,8,9};
   Shared::shuffle(comboValues,10);
+  
   for(int i = 0; i < puzzleLength; i++){
     solution[i] = values[i];
     combo[i] = comboValues[i];  
@@ -80,8 +81,22 @@ Shared::Gamemode Hacker::loop(Arduboy2 arduboy, ArduboyTones sound)
   arduboy.drawRect(boxMargin,29,boxWidth + 1,15);
   
   // draw background text
-  Typewriter::textAt("ABDEFHS",boxMargin - 40,33);
-  Typewriter::textAt("0172652",boxMargin * 2 + boxWidth,33);
+
+  if(arduboy.everyXFrames(10)){
+    int leftValues[10] = {0,1,2,3,4,5,6,7,8,9};
+    Shared::shuffle(leftValues,10);
+    int rightValues[10] = {0,1,2,3,4,5,6,7,8,9};
+    Shared::shuffle(rightValues,10);
+    for(int i = 0; i < puzzleLength; i++){
+      leftNoise[i] = leftValues[i];
+      rightNoise[i] = rightValues[i];
+    }
+  }
+
+  for(int i = 0; i < 7; i++){
+    Typewriter::numAt(boxMargin - 40 + i*5,33,leftNoise[i]);
+    Typewriter::numAt(boxMargin + boxWidth + 5 + i*5,33,rightNoise[i]);
+  }
   
   if(!ended  && (arduboy.justReleased(B_BUTTON) || checkTimer == 140)){
     sound.tone(440,50);
