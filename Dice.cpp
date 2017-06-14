@@ -30,9 +30,14 @@ Shared::Gamemode Dice::loop(Arduboy2 arduboy)
     Typewriter::textAt(100,22,"TOTAL");
     Typewriter::textAt(100,31,buf);
     int x = 5;
+    int y = 40;
     for(int i = 0; i < rolledDice; i++){
       itoa(diceResults[i],buf,10);
-      x += Typewriter::textAt(x,40,buf) * 5 + 5; 
+      x += Typewriter::textAt(x,y,buf) * 5 + 5; 
+      if(x > 120){
+        x = 5;
+        y += 9;
+      }
     }
   } else {
     rolledDice = 0;
