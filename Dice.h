@@ -20,7 +20,8 @@ class Dice
     int numDice = 1;
     int rolledDice = 1;
     int numSides = 5;
-    int diceResults[10] = {0};
+    int plus = 0;
+    int diceResults[20] = {0};
     int cursorPos = 0;
     int upDownRepeat = 0;
     char buf[8];

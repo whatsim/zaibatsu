@@ -99,7 +99,6 @@ void loop() {
       // hold b to quit to menu
       exitTimer ++;
       if(exitTimer == 5) {
-        arduboy.initRandomSeed();
         if(mode == Shared::menu){
           mode = Shared::dice;
         } else {
