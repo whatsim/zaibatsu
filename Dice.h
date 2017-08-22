@@ -25,7 +25,6 @@ class Dice
     int cursorPos = 0;
     int upDownRepeat = 0;
     char buf[8];
-    Arduboy2 &arduboy;
 };
 
 #endif

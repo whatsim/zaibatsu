@@ -18,7 +18,6 @@ class Menu
     int scrollPos = 0;
     int index = 0;
     bool menuSettled = false;
-    Arduboy2 &arduboy;
     const char *optionNames[3] = { "SCANNER", "POWER MNG", "DIAGNOSTIC" };
 };
 

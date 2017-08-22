@@ -17,6 +17,7 @@ Shared::Gamemode Menu::loop(Arduboy2 arduboy)
   menuSettled = arduboy.justPressed(B_BUTTON) || menuSettled;
 
   if(arduboy.justReleased(B_BUTTON) && menuSettled){
+    arduboy.initRandomSeed();
     switch(index){
       case 0 :
         mode = Shared::scanner;
